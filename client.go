@@ -58,11 +58,12 @@ func main() {
 	}
 	wg.Wait()
 	t2 := time.Since(t)
-	log.Printf("%v clients connected, used: %v ns, %v ns/op", *clientNum, t2.Seconds(), t2.Nanoseconds()/int64(*clientNum))
+	log.Printf("%v clients connected, used: %v s, %v ns/op", *clientNum, t2.Seconds(), t2.Nanoseconds()/int64(*clientNum))
 
 	//warm up
-	log.Println("warn up for 5s")
+	log.Println("warn up for 5s...")
 	time.Sleep(time.Second * 5)
+	log.Println("warn up over, start io statistics")
 
 	t = time.Now()
 	atomic.SwapInt64(&totalRead, 0)
