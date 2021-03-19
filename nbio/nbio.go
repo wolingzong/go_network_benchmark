@@ -16,7 +16,7 @@ func onData(c *nbio.Conn, data []byte) {
 func main() {
 	g := nbio.NewGopher(nbio.Config{
 		Network: "tcp",
-		NPoller: uint32(runtime.NumCPU() * 1),
+		NPoller: runtime.NumCPU() * 1,
 		Addrs:   []string{"localhost:8888"},
 	})
 
