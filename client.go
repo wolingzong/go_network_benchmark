@@ -71,7 +71,4 @@ func main() {
 
 	time.Sleep(time.Second * time.Duration(*testTime))
 	log.Printf("%vs, total read: %.2f M, total write: %.2f M", *testTime, float64(atomic.LoadInt64(&totalRead))/1024/1024, float64(atomic.LoadInt64(&totalWrite))/1024/1024)
-
-	log.Println(g.State().String())
-
 }
