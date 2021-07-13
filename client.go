@@ -19,6 +19,8 @@ var (
 )
 
 func main() {
+	flag.Parse()
+
 	var (
 		wg         sync.WaitGroup
 		qps        int64
