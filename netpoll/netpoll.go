@@ -43,7 +43,7 @@ func main() {
 // 读事件处理
 func handler(ctx context.Context, connection netpoll.Connection) error {
 	reader := connection.Reader()
-	buf, err := reader.Peek(reader.Len())
+	buf, err := reader.Next(reader.Len())
 	if err != nil {
 		return err
 	}
