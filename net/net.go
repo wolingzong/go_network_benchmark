@@ -12,7 +12,7 @@ func handle(conn net.Conn) {
 		if err != nil {
 			return
 		}
-		nwrite, err := conn.Write(buf[:nread])
+		nwrite, err := conn.Write(append([]byte{}, buf[:nread]...))
 		if err != nil {
 			return
 		}
