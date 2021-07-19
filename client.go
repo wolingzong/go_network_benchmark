@@ -15,7 +15,7 @@ var (
 
 	clientNum = flag.Int("c", 20000, "client num")
 	testTime  = flag.Int("t", 30, "total test time")
-	bufsize   = flag.Int("b", 64, "data size")
+	bufsize   = flag.Int("b", 1024, "data size")
 )
 
 func main() {

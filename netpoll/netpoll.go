@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	bufsize = flag.Int("b", 64, "data size")
+	bufsize = flag.Int("b", 1024, "data size")
 )
 
 func main() {
