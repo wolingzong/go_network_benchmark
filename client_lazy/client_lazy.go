@@ -64,7 +64,7 @@ func main() {
 				if *lazySend {
 					lazyConns = append(lazyConns, c)
 				} else {
-					go handle(c)
+					go handleLazy(c)
 				}
 				break
 			}
