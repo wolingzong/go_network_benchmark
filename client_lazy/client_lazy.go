@@ -30,6 +30,7 @@ func main() {
 
 	t := time.Now()
 	wg := sync.WaitGroup{}
+	mux := sync.Mutex{}
 	conns := []net.Conn{}
 	lazyConns := []net.Conn{}
 	for i := 0; i < *clientNum; i++ {
@@ -43,7 +44,9 @@ func main() {
 					continue
 				}
 				if *lazySend {
+					mux.Lock()
 					conns = append(conns, c)
+					mux.Unlock()
 				} else {
 					go handle(c)
 				}
@@ -62,7 +65,9 @@ func main() {
 					continue
 				}
 				if *lazySend {
+					mux.Lock()
 					lazyConns = append(lazyConns, c)
+					mux.Unlock()
 				} else {
 					go handleLazy(c)
 				}
@@ -126,8 +131,8 @@ func handleLazy(conn net.Conn) {
 				return
 			}
 			nwrite += n
+			time.Sleep(time.Second * 5)
 		}
-		time.Sleep(time.Second * 5)
 		n, err := conn.Write(buf[len(buf)-1:])
 		if err != nil {
 			return
