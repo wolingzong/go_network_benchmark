@@ -4,6 +4,8 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log"
+	"runtime"
 	"time"
 
 	"github.com/cloudwego/netpoll"
@@ -41,9 +43,16 @@ func main() {
 	}
 
 	// 运行 Server
-	err = eventLoop.Serve(listener)
-	if err != nil {
-		panic("netpoll server exit")
+	go func() {
+		err = eventLoop.Serve(listener)
+		if err != nil {
+			panic("netpoll server exit")
+		}
+	}()
+
+	for {
+		time.Sleep(time.Second)
+		log.Println("goroutine num:", runtime.NumCPU())
 	}
 }
 

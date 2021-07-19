@@ -26,7 +26,7 @@ var (
 func main() {
 	flag.Parse()
 
-	log.Printf("loat test for %v connections, buffer size: %v", *clientNum, *bufsize)
+	log.Printf("loat test for %v normal connections and %v sticky connections, buffer size: %v", *clientNum, *stickyClientNum, *bufsize)
 
 	t := time.Now()
 	wg := sync.WaitGroup{}
