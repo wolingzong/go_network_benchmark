@@ -15,11 +15,8 @@ func onData(c *nbio.Conn, data []byte) {
 
 func main() {
 	g := nbio.NewGopher(nbio.Config{
-		Network:      "tcp",
-		NPoller:      runtime.NumCPU() * 1,
-		LockListener: true,
-		LockPoller:   true,
-		Addrs:        []string{"localhost:8888"},
+		Network: "tcp",
+		Addrs:   []string{"localhost:8888"},
 	})
 
 	g.OnData(onData)

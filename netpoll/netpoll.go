@@ -2,13 +2,20 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"time"
 
 	"github.com/cloudwego/netpoll"
 )
 
+var (
+	bufsize = flag.Int("b", 64, "data size")
+)
+
 func main() {
+	flag.Parse()
+
 	network, address := "tcp", "127.0.0.1:8888"
 
 	// 创建 listener
@@ -43,7 +50,11 @@ func main() {
 // 读事件处理
 func handler(ctx context.Context, connection netpoll.Connection) error {
 	reader := connection.Reader()
-	buf, err := reader.Next(reader.Len())
+	l := *bufsize
+	if l <= 0 {
+		l = reader.Len()
+	}
+	buf, err := reader.Next(l)
 	if err != nil {
 		return err
 	}
@@ -60,5 +71,4 @@ func handler(ctx context.Context, connection netpoll.Connection) error {
 	}
 
 	return nil
-	// return connection.Writer().Flush()
 }
