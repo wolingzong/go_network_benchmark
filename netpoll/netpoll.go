@@ -31,7 +31,7 @@ func main() {
 
 	// options: EventLoop 初始化自定义配置项
 	var opts = []netpoll.Option{
-		netpoll.WithReadTimeout(1 * time.Second),
+		netpoll.WithReadTimeout(5 * time.Second),
 		netpoll.WithIdleTimeout(10 * time.Minute),
 		netpoll.WithOnPrepare(nil),
 	}
