@@ -125,19 +125,14 @@ func handleLazy(conn net.Conn) {
 	buf := make([]byte, *bufsize)
 	for {
 		nwrite := 0
-		for i := 0; i < len(buf)-1; i++ {
+		for i := 0; i < len(buf); i++ {
 			n, err := conn.Write(buf[i : i+1])
 			if err != nil {
 				return
 			}
 			nwrite += n
-			time.Sleep(time.Second * 5)
+			time.Sleep(time.Second / 100)
 		}
-		n, err := conn.Write(buf[len(buf)-1:])
-		if err != nil {
-			return
-		}
-		nwrite += n
 		atomic.AddInt64(&totalWrite, int64(nwrite))
 
 		nread, err := io.ReadFull(conn, buf)
